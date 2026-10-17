@@ -2,7 +2,7 @@ name: Deploy Angular App to GitHub Pages
 
 on:
   push:
-    branches: [ main-2 ] # Change to 'master' if your main branch is called master
+    branches: [ main-2 ]
 
 permissions:
   contents: read
@@ -35,7 +35,7 @@ jobs:
         working-directory: web
 
       - name: Build Angular app
-        run: npx ng build --base-href /
+        run: npx ng build --configuration production --base-href /Nargisse.github.io/
         working-directory: web
 
       - name: Setup Pages
