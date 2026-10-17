@@ -12,3 +12,13 @@ input,select,button{font:inherit;padding:8px 10px;border:1px solid #d9ccd0;borde
 .petal{position:absolute!important;top:-30px;z-index:0!important;font-style:normal;animation:fall 8s linear infinite}
 @keyframes fall{to{transform:translateY(640px) rotate(360deg)}}
 @media(max-width:800px){.studio{grid-template-columns:1fr}}
+
+/* --- Studio (iframe) & administration --- */
+main:has(app-studio){max-width:none;padding:0}
+.studio-bar{display:flex;gap:12px;align-items:center;padding:6px 16px;background:#fff;border-bottom:1px solid #eadfe2;min-height:34px}
+.studio-bar small{color:#7a736a}.studio-bar small.err{color:#b00020;margin:0}
+.studio-frame{display:block;width:100%;height:calc(100dvh - 104px);min-height:480px;border:0;background:#f7f4f2}
+.adm-form{display:grid;gap:10px;max-width:560px}
+.thumb{height:36px;max-width:90px;object-fit:cover;border-radius:6px;vertical-align:middle}
+.adm-form .thumb{height:90px;max-width:160px}
+.adm-list{list-style:none;padding:0}.adm-list li{display:flex;gap:10px;align-items:center;margin:6px 0}

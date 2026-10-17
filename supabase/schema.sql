@@ -16,7 +16,7 @@ create table public.designs (
   id bigint generated always as identity primary key,
   category text not null check (category in ('palettes','fonts','petals','frames','backgrounds','envelopes','music','venues')),
   name text not null check (length(name) between 1 and 80),
-  value text not null default '',
+  value text not null default '',   -- JSON propre à la catégorie (ex. palette : {"bg":"#fff","ink":"#222",...}) ; anciens formats texte tolérés
   file text check (file is null or length(file) < 7000000),
   created_at timestamptz default now());
 
@@ -30,6 +30,8 @@ alter table public.invitations enable row level security;
 
 create policy "voir son profil" on public.profiles for select to authenticated using (id = auth.uid());
 create policy "voir les designs" on public.designs for select to authenticated using (true);
+-- Les liens invités (…/studio/index.html#v=…) sont ouverts sans connexion : ils doivent pouvoir lire les designs utilisés par la carte.
+create policy "designs publics" on public.designs for select to anon using (true);
 create policy "admin ajoute" on public.designs for insert to authenticated with check (public.is_admin());
 create policy "admin supprime" on public.designs for delete to authenticated using (public.is_admin());
 create policy "son invitation" on public.invitations for all to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
