@@ -5,8 +5,9 @@ import { Studio } from './studio';
 import { Admin } from './admin';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
   { path: 'studio', component: Studio, canActivate: [loggedIn] },   // vue client
   { path: 'admin', component: Admin, canActivate: [adminOnly] },    // vue admin
-  { path: '**', redirectTo: 'studio' },
+  { path: '**', redirectTo: 'login' },
 ];
