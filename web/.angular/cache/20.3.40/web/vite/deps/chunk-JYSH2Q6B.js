@@ -543,7 +543,7 @@ function _stripBasePath(basePath, url) {
   return url;
 }
 function _stripIndexHtml(url) {
-  return url.replace(/\/index.html$/, "");
+  return url.replace(/\/index-1.html$/, "");
 }
 function _stripOrigin(baseHref) {
   const isAbsoluteUrl2 = new RegExp("^(https?:)?//").test(baseHref);
@@ -772,14 +772,14 @@ var CURRENCIES_EN = {
   "ZWD": [void 0, void 0, 0]
 };
 var NumberFormatStyle;
-(function(NumberFormatStyle2) {
+(function (NumberFormatStyle2) {
   NumberFormatStyle2[NumberFormatStyle2["Decimal"] = 0] = "Decimal";
   NumberFormatStyle2[NumberFormatStyle2["Percent"] = 1] = "Percent";
   NumberFormatStyle2[NumberFormatStyle2["Currency"] = 2] = "Currency";
   NumberFormatStyle2[NumberFormatStyle2["Scientific"] = 3] = "Scientific";
 })(NumberFormatStyle || (NumberFormatStyle = {}));
 var Plural;
-(function(Plural2) {
+(function (Plural2) {
   Plural2[Plural2["Zero"] = 0] = "Zero";
   Plural2[Plural2["One"] = 1] = "One";
   Plural2[Plural2["Two"] = 2] = "Two";
@@ -788,19 +788,19 @@ var Plural;
   Plural2[Plural2["Other"] = 5] = "Other";
 })(Plural || (Plural = {}));
 var FormStyle;
-(function(FormStyle2) {
+(function (FormStyle2) {
   FormStyle2[FormStyle2["Format"] = 0] = "Format";
   FormStyle2[FormStyle2["Standalone"] = 1] = "Standalone";
 })(FormStyle || (FormStyle = {}));
 var TranslationWidth;
-(function(TranslationWidth2) {
+(function (TranslationWidth2) {
   TranslationWidth2[TranslationWidth2["Narrow"] = 0] = "Narrow";
   TranslationWidth2[TranslationWidth2["Abbreviated"] = 1] = "Abbreviated";
   TranslationWidth2[TranslationWidth2["Wide"] = 2] = "Wide";
   TranslationWidth2[TranslationWidth2["Short"] = 3] = "Short";
 })(TranslationWidth || (TranslationWidth = {}));
 var FormatWidth;
-(function(FormatWidth2) {
+(function (FormatWidth2) {
   FormatWidth2[FormatWidth2["Short"] = 0] = "Short";
   FormatWidth2[FormatWidth2["Medium"] = 1] = "Medium";
   FormatWidth2[FormatWidth2["Long"] = 2] = "Long";
@@ -881,7 +881,7 @@ var NumberSymbol = {
   CurrencyGroup: 13
 };
 var WeekDay;
-(function(WeekDay2) {
+(function (WeekDay2) {
   WeekDay2[WeekDay2["Sunday"] = 0] = "Sunday";
   WeekDay2[WeekDay2["Monday"] = 1] = "Monday";
   WeekDay2[WeekDay2["Tuesday"] = 2] = "Tuesday";
@@ -976,8 +976,8 @@ function getLocaleExtraDayPeriods(locale, formStyle, width) {
     0
     /* ɵExtraLocaleDataIndex.ExtraDayPeriodFormats */
   ], data[LocaleDataIndex.ExtraData][
-    1
-    /* ɵExtraLocaleDataIndex.ExtraDayPeriodStandalone */
+  1
+  /* ɵExtraLocaleDataIndex.ExtraDayPeriodStandalone */
   ]];
   const dayPeriods = getLastDefinedValue(dayPeriodsData, formStyle) || [];
   return getLastDefinedValue(dayPeriods, width) || [];
@@ -1144,7 +1144,7 @@ function getNamedFormat(locale, format) {
 }
 function formatDateTime(str, opt_values) {
   if (opt_values) {
-    str = str.replace(/\{([^}]+)}/g, function(match, key) {
+    str = str.replace(/\{([^}]+)}/g, function (match, key) {
       return opt_values != null && key in opt_values ? opt_values[key] : match;
     });
   }
@@ -1174,7 +1174,7 @@ function formatFractionalSeconds(milliseconds, digits) {
   return strMs.substring(0, digits);
 }
 function dateGetter(name, size, offset = 0, trim = false, negWrap = false) {
-  return function(date, locale) {
+  return function (date, locale) {
     let part = getDatePart(name, date);
     if (offset > 0 || part > -offset) {
       part += offset;
@@ -1213,7 +1213,7 @@ function getDatePart(part, date) {
   }
 }
 function dateStrGetter(name, width, form = FormStyle.Format, extended = false) {
-  return function(date, locale) {
+  return function (date, locale) {
     return getDateTranslation(date, locale, name, width, form, extended);
   };
 }
@@ -1261,7 +1261,7 @@ function getDateTranslation(date, locale, name, width, form, extended) {
   }
 }
 function timeZoneGetter(width) {
-  return function(date, locale, offset) {
+  return function (date, locale, offset) {
     const zone = -1 * offset;
     const minusSign = getLocaleNumberSymbol(locale, NumberSymbol.MinusSign);
     const hours = zone > 0 ? Math.floor(zone / 60) : Math.ceil(zone / 60);
@@ -1295,7 +1295,7 @@ function getThursdayThisIsoWeek(datetime) {
   return createDate(datetime.getFullYear(), datetime.getMonth(), datetime.getDate() + deltaToThursday);
 }
 function weekGetter(size, monthBased = false) {
-  return function(date, locale) {
+  return function (date, locale) {
     let result;
     if (monthBased) {
       const nbDaysBefore1stDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1;
@@ -1311,7 +1311,7 @@ function weekGetter(size, monthBased = false) {
   };
 }
 function weekNumberingYearGetter(size, trim = false) {
-  return function(date, locale) {
+  return function (date, locale) {
     const thisThurs = getThursdayThisIsoWeek(date);
     const weekNumberingYear = thisThurs.getFullYear();
     return padNumber(weekNumberingYear, size, getLocaleNumberSymbol(locale, NumberSymbol.MinusSign), trim);
@@ -1874,7 +1874,7 @@ function roundNumber(parsedNumber, minFrac, maxFrac) {
   for (; fractionLen < Math.max(0, fractionSize); fractionLen++) digits.push(0);
   let dropTrailingZeros = fractionSize !== 0;
   const minLen = minFrac + parsedNumber.integerLen;
-  const carry = digits.reduceRight(function(carry2, d, i, digits2) {
+  const carry = digits.reduceRight(function (carry2, d, i, digits2) {
     d = d + carry2;
     digits2[i] = d < 10 ? d : d - 10;
     if (dropTrailingZeros) {
