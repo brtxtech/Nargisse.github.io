@@ -2,7 +2,7 @@ name: Deploy Angular App to GitHub Pages
 
 on:
   push:
-    branches: [ main ] # Change to 'master' if your main branch is called master
+    branches: [ main-2 ] # Change to 'master' if your main branch is called master
 
 permissions:
   contents: read
